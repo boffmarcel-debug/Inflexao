@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inflexão — Living Lab Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1714;
+    --cream: #f5f0e8;
+    --warm: #e8e0d0;
+    --gold: #c8963c;
+    --gold-light: #e4b96a;
+    --rust: #a0432a;
+    --fog: #8a8278;
+    --white: #faf8f4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    top: 0; right: -1px; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .hero-right {
+    background: var(--cream);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Decorative arc */
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -120px;
+    transform: translateY(-50%);
+    width: 240px;
+    height: 240px;
+    border: 1px solid var(--gold-light);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+
+  .logo-mark {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--fog);
+    text-transform: uppercase;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+  }
+
+  .hero-manifesto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 32px;
+    padding-left: 20px;
+    border-left: 2px solid var(--gold);
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--fog);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--fog);
+    line-height: 1.8;
+    max-width: 380px;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 100px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 40px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  /* ── PROVOCATION BAND ── */
+  .provocation-band {
+    background: var(--ink);
+    padding: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .provocation-band::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border: 1px solid rgba(200, 150, 60, 0.15);
+    border-radius: 50%;
+  }
+
+  .provocation-band::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgba(200, 150, 60, 0.1);
+    border-radius: 50%;
+  }
+
+  .provocation-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .provocation-text span {
+    color: var(--gold-light);
+  }
+
+  /* ── THREE ACTS ── */
+  .acts-section {
+    background: var(--white);
+    padding: 100px 0;
+  }
+
+  .acts-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 80px;
+  }
+
+  .acts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    border: 1px solid var(--warm);
+  }
+
+  .act-card {
+    padding: 48px 40px;
+    position: relative;
+    border-right: 1px solid var(--warm);
+    transition: background 0.3s ease;
+  }
+
+  .act-card:last-child { border-right: none; }
+
+  .act-card:hover { background: var(--cream); }
+
+  .act-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--warm);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .act-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .act-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .act-desc {
+    font-size: 14px;
+    color: var(--fog);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .act-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    text-transform: uppercase;
+  }
+
+  .act-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .tag-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fog);
+    border: 1px solid var(--warm);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* ── ARC SVG ── */
+  .arc-section {
+    background: var(--cream);
+    padding: 80px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .arc-svg-wrap {
+    max-width: 900px;
+    margin: 60px auto 0;
+  }
+
+  /* ── FOUNDATIONS ── */
+  .foundations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--warm);
+    margin-top: 60px;
+    border: 1px solid var(--warm);
+  }
+
+  .foundation-card {
+    background: var(--white);
+    padding: 48px 44px;
+    transition: background 0.3s;
+  }
+
+  .foundation-card:hover { background: var(--cream); }
+
+  .foundation-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .foundation-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .foundation-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .foundation-desc {
+    font-size: 14px;
+    color: var(--fog);
+    line-height: 1.8;
+  }
+
+  /* ── WHAT CHANGES ── */
+  .change-section {
+    background: var(--ink);
+    padding: 100px 80px;
+  }
+
+  .change-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .change-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 60px;
+    line-height: 1.1;
+  }
+
+  .change-title em { color: var(--gold-light); font-style: italic; }
+
+  .change-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .change-item {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 28px;
+  }
+
+  .change-arrow {
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .change-from {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--fog);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-decoration: line-through;
+    text-decoration-color: var(--rust);
+  }
+
+  .change-to {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  /* ── PROGRAM TRACK ── */
+  .track-section {
+    background: var(--white);
+    padding: 100px 80px;
+  }
+
+  .track-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .track-timeline {
+    margin-top: 60px;
+    position: relative;
+  }
+
+  .track-timeline::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .track-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 28px;
+    margin-bottom: 36px;
+    align-items: start;
+  }
+
+  .track-dot {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    background: var(--white);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .track-dot.peak {
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .track-content {
+    padding-top: 12px;
+    border-bottom: 1px solid var(--warm);
+    padding-bottom: 24px;
+  }
+
+  .track-session {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .track-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .track-desc {
+    font-size: 13px;
+    color: var(--fog);
+    line-height: 1.7;
+  }
+
+  .track-phase-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+    padding: 3px 8px;
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+
+  /* ── OUTPUTS ── */
+  .outputs-section {
+    background: var(--cream);
+    padding: 100px 80px;
+  }
+
+  .outputs-inner { max-width: 1200px; margin: 0 auto; }
+
+  .outputs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--warm);
+  }
+
+  .output-card {
+    background: var(--cream);
+    padding: 44px 36px;
+    transition: background 0.3s;
+  }
+
+  .output-card:hover { background: var(--white); }
+
+  .output-symbol {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .output-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .output-desc {
+    font-size: 13px;
+    color: var(--fog);
+    line-height: 1.8;
+  }
+
+  /* ── CLOSING MANIFESTO ── */
+  .closing {
+    background: var(--ink);
+    padding: 120px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .closing::before {
+    content: '∞';
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 600px;
+    color: rgba(255,255,255,0.02);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .closing-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.4;
+    max-width: 760px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .closing-text em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .closing-sub {
+    font-size: 15px;
+    color: var(--fog);
+    max-width: 500px;
+    margin: 0 auto 56px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .closing-footer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── DIVIDERS ── */
+  .gold-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.5s; }
+
+  .hero-right > * {
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+  .hero-right > *:nth-child(1) { animation-delay: 0.4s; }
+  .hero-right > *:nth-child(2) { animation-delay: 0.55s; }
+  .hero-right > *:nth-child(3) { animation-delay: 0.7s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 40px; }
+    .hero-right { padding: 60px 40px; }
+    .hero-left::after { display: none; }
+    .acts-grid { grid-template-columns: 1fr; }
+    .act-card { border-right: none; border-bottom: 1px solid var(--warm); }
+    .foundations-grid { grid-template-columns: 1fr; }
+    .change-grid { grid-template-columns: 1fr; }
+    .outputs-grid { grid-template-columns: 1fr; }
+    section, .acts-inner, .change-section, .track-section, .outputs-section, .closing, .arc-section { padding: 60px 32px; }
+    .provocation-band { padding: 60px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="logo-mark">Inflexão · Living Lab Education</div>
+
+    <div>
+      <div class="hero-headline">
+        Toda pessoa<br>tem uma<br><em>virada</em><br>dentro de si.
+      </div>
+    </div>
+
+    <div class="hero-sub">
+      Experiência educacional que transforma · 2026
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-tag">Manifesto</div>
+    <div class="hero-manifesto">
+      Nosso trabalho é criar as condições para que ela aconteça.
+    </div>
+    <div class="hero-desc">
+      Não somos uma empresa de treinamento. Somos arquitetos de experiências que transformam a relação das pessoas com o aprendizado, com a inovação e consigo mesmas.<br><br>
+      Cada sessão é um ato de design. Cada pergunta é intencional. Cada silêncio, calculado.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PROVOCATION ══════════════ -->
+<div class="provocation-band">
+  <div class="provocation-text">
+    "A Inflexão existe para que as organizações descubram que seu maior ativo não é o que seus talentos sabem —<br>
+    mas o que eles <span>ainda são capazes de aprender.</span>"
+  </div>
+</div>
+
+<!-- ══════════════ THREE ACTS ══════════════ -->
+<div class="acts-section">
+  <div class="acts-inner">
+    <div class="section-label">Metodologia · A Estrutura em 3 Atos</div>
+    <div class="section-title">
+      Toda sessão é uma<br><em>dramaturgia</em> intencional.
+    </div>
+    <p style="font-size:15px;color:var(--fog);max-width:560px;line-height:1.8;">
+      Cada encontro segue uma arquitetura de três atos com funções precisas — criando a experiência que os participantes não conseguem descrever, mas jamais esquecem.
+    </p>
+
+    <div class="acts-grid">
+      <!-- ATO I -->
+      <div class="act-card">
+        <div class="act-number">I</div>
+        <div class="act-tag">Problem Solving</div>
+        <div class="act-name">O Desafio que Desestabiliza</div>
+        <div class="act-desc">
+          O primeiro ato lança o participante em um problema real, ambíguo, sem resposta fácil. Não há warm-up suave. Há uma provocação que força o grupo a pensar junto, expor lacunas e questionar premissas.
+        </div>
+        <div class="act-phase">SET → HOLD · 30–35 min</div>
+        <div class="act-tags">
+          <span class="tag-pill">Design Thinking</span>
+          <span class="tag-pill">SCAMPER</span>
+          <span class="tag-pill">JTBD</span>
+          <span class="tag-pill">MVP</span>
+        </div>
+      </div>
+
+      <!-- ATO II -->
+      <div class="act-card">
+        <div class="act-number">II</div>
+        <div class="act-tag">Arena · Palco</div>
+        <div class="act-name">A Vivência que Transforma</div>
+        <div class="act-desc">
+          O coração imersivo da sessão. O grupo deixa de analisar o problema e passa a habitá-lo. Simulações, roleplay, dinâmicas de pressão — o conteúdo vira experiência corporal e emocional.
+        </div>
+        <div class="act-phase">HOLD · Apogeu · 35–40 min</div>
+        <div class="act-tags">
+          <span class="tag-pill">Roleplay</span>
+          <span class="tag-pill">Simulação</span>
+          <span class="tag-pill">Living Lab</span>
+          <span class="tag-pill">Alta Ação</span>
+        </div>
+      </div>
+
+      <!-- ATO III -->
+      <div class="act-card">
+        <div class="act-number">III</div>
+        <div class="act-tag">Roda de Aprendizagem</div>
+        <div class="act-name">O Espelho que Integra</div>
+        <div class="act-desc">
+          A virada reflexiva — o momento em que a experiência se transforma em aprendizado consciente. O facilitador torna-se espelho. A pergunta inicial é revisitada — e agora ela é diferente.
+        </div>
+        <div class="act-phase">LAND · 20–25 min</div>
+        <div class="act-tags">
+          <span class="tag-pill">MAI</span>
+          <span class="tag-pill">Sensemaking</span>
+          <span class="tag-pill">Check-out</span>
+          <span class="tag-pill">Baixa Ação</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ARC DIAGRAM ══════════════ -->
+<div class="arc-section">
+  <div class="section-label" style="text-align:center;">Arquitetura · SET · HOLD · LAND</div>
+  <div class="section-title" style="text-align:center;max-width:600px;margin:0 auto 0;">
+    A bússola que governa<br>cada <em>decisão de facilitação.</em>
+  </div>
+  <div class="arc-svg-wrap">
+    <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;overflow:visible;">
+      <defs>
+        <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#8a8278;stop-opacity:0.4"/>
+          <stop offset="35%" style="stop-color:#c8963c;stop-opacity:1"/>
+          <stop offset="65%" style="stop-color:#c8963c;stop-opacity:1"/>
+          <stop offset="100%" style="stop-color:#8a8278;stop-opacity:0.4"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Arc curve -->
+      <path d="M 80,230 C 200,230 280,40 450,40 C 620,40 700,230 820,230"
+            fill="none" stroke="url(#arcGrad)" stroke-width="2"/>
+
+      <!-- SET zone -->
+      <rect x="40" y="200" width="200" height="24" fill="#1a1714" rx="2"/>
+      <text x="140" y="216" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#c8963c" letter-spacing="3">SET</text>
+
+      <!-- HOLD zone -->
+      <rect x="310" y="18" width="280" height="24" fill="#1a1714" rx="2"/>
+      <text x="450" y="34" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#e4b96a" letter-spacing="3">HOLD · APOGEU</text>
+
+      <!-- LAND zone -->
+      <rect x="660" y="200" width="200" height="24" fill="#1a1714" rx="2"/>
+      <text x="760" y="216" text-anchor="middle" font-family="DM Mono" font-size="9" fill="#c8963c" letter-spacing="3">LAND</text>
+
+      <!-- Points on arc -->
+      <circle cx="80" cy="230" r="5" fill="#c8963c" opacity="0.5"/>
+      <circle cx="170" cy="155" r="5" fill="#c8963c" opacity="0.7"/>
+      <circle cx="280" cy="75" r="5" fill="#c8963c"/>
+      <circle cx="450" cy="40" r="8" fill="#e4b96a"/>
+      <circle cx="620" cy="75" r="5" fill="#c8963c"/>
+      <circle cx="730" cy="155" r="5" fill="#c8963c" opacity="0.7"/>
+      <circle cx="820" cy="230" r="5" fill="#c8963c" opacity="0.5"/>
+
+      <!-- Labels -->
+      <text x="80" y="258" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#8a8278" letter-spacing="1">Check-in</text>
+      <text x="450" y="22" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#e4b96a" letter-spacing="1">Apogeu</text>
+      <text x="820" y="258" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#8a8278" letter-spacing="1">Check-out</text>
+
+      <!-- Act dividers -->
+      <line x1="260" y1="40" x2="260" y2="240" stroke="#1a1714" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+      <line x1="640" y1="40" x2="640" y2="240" stroke="#1a1714" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+
+      <text x="150" y="270" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#8a8278">ATO I</text>
+      <text x="450" y="270" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#8a8278">ATO II</text>
+      <text x="750" y="270" text-anchor="middle" font-family="DM Mono" font-size="8" fill="#8a8278">ATO III</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════ FOUNDATIONS ══════════════ -->
+<section style="background:var(--cream);">
+  <div class="section-label">Fundação Teórica</div>
+  <div class="section-title">
+    Rigor que<br><em>liberta.</em>
+  </div>
+  <p style="font-size:15px;color:var(--fog);max-width:540px;line-height:1.8;margin-bottom:0;">
+    A metodologia da Inflexão não é intuitiva — é fundamentada. Cada escolha de design tem raiz em décadas de pesquisa sobre como adultos realmente aprendem.
+  </p>
+
+  <div class="foundations-grid" style="margin-top:48px;">
+    <div class="foundation-card">
+      <span class="foundation-icon">◎</span>
+      <div class="foundation-name">Kolb · Aprendizagem Experiencial</div>
+      <div class="foundation-title">Adultos aprendem em ciclos, não em linhas retas.</div>
+      <div class="foundation-desc">A experiência precisa ser vivida, observada, conceituada e testada para se transformar em competência real. A Inflexão arquiteta cada sessão em torno desse ciclo — ativando os quatro estilos de aprendizagem em todo participante.</div>
+    </div>
+
+    <div class="foundation-card">
+      <span class="foundation-icon">⌒</span>
+      <div class="foundation-name">Kaospilot · Learning Arches</div>
+      <div class="foundation-title">Cada experiência é um arco dramático com decolagem, apogeu e aterrizagem.</div>
+      <div class="foundation-desc">A metodologia de Aarhus estrutura a jornada para que seja emocionalmente e cognitivamente coerente — com início, tensão e fechamento que lança, não apenas encerra.</div>
+    </div>
+
+    <div class="foundation-card">
+      <span class="foundation-icon">○</span>
+      <div class="foundation-name">Grupoterapia · Sensemaking Coletivo</div>
+      <div class="foundation-title">O grupo não é o contexto — é o conteúdo.</div>
+      <div class="foundation-desc">As tensões, os atritos e as sínteses que emergem de um grupo heterogêneo são aprendizagens que nenhum material didático substitui. O facilitador opera como espelho sistêmico, não como transmissor.</div>
+    </div>
+
+    <div class="foundation-card">
+      <span class="foundation-icon">⬡</span>
+      <div class="foundation-name">Living Lab Education</div>
+      <div class="foundation-title">O laboratório é o próprio grupo em ação.</div>
+      <div class="foundation-desc">Contextos autênticos — nos quais participantes enfrentam problemas reais, com colaboração real — produzem desenvolvimento que nenhum conteúdo transmitido replica. O processo de aprender é, em si, o objeto de estudo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHAT CHANGES ══════════════ -->
+<div class="change-section">
+  <div class="change-inner">
+    <div class="section-label" style="color:var(--gold);">O que muda nas pessoas</div>
+    <div class="change-title">
+      O que o participante<br>leva — e o que<br>ele <em>deixa para trás.</em>
+    </div>
+
+    <div class="change-grid">
+      <div class="change-item">
+        <span class="change-arrow">→</span>
+        <div class="change-from">Da execução</div>
+        <div class="change-to">Para a criação com intenção</div>
+      </div>
+      <div class="change-item">
+        <span class="change-arrow">→</span>
+        <div class="change-from">Da certeza</div>
+        <div class="change-to">Para a curiosidade estruturada</div>
+      </div>
+      <div class="change-item">
+        <span class="change-arrow">→</span>
+        <div class="change-from">Do eu individual</div>
+        <div class="change-to">Para o nós sistêmico</div>
+      </div>
+      <div class="change-item">
+        <span class="change-arrow">→</span>
+        <div class="change-from">Premissas não questionadas</div>
+        <div class="change-to">Nova pergunta, melhor que a anterior</div>
+      </div>
+      <div class="change-item">
+        <span class="change-arrow">→</span>
+        <div class="change-from">Baixa tolerância à ambiguidade</div>
+        <div class="change-to">Presença e regulação sob pressão</div>
+      </div>
+      <div class="change-item">
+        <span class="change-arrow">→</span>
+        <div class="change-from">Identidade profissional como armadura</div>
+        <div class="change-to">Autoconhecimento como competência</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PROGRAM TRACK ══════════════ -->
+<div class="track-section">
+  <div class="track-inner">
+    <div class="section-label">Exemplo de Aplicação · TKE Talent Program · Track 3</div>
+    <div class="section-title">
+      O Arco da <em>Inovação.</em>
+    </div>
+    <p style="font-size:15px;color:var(--fog);max-width:560px;line-height:1.8;">
+      10 sessões mensais de 90 minutos. Um arco de progressão intencional — cada encontro aprofunda e complexifica o anterior, criando coerência narrativa ao longo de toda a trilha.
+    </p>
+
+    <div class="track-timeline">
+      <div class="track-item">
+        <div class="track-dot">S01</div>
+        <div class="track-content">
+          <div class="track-session">Set · Setembro 2026</div>
+          <div class="track-name">What Is Innovation, Really?</div>
+          <div class="track-desc">Desconstrução do conceito. O grupo é confrontado com casos onde o que foi considerado "errado" no seu tempo se tornou transformador. A pergunta âncora é lançada.</div>
+          <span class="track-phase-tag">SET · Decolagem</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S02</div>
+        <div class="track-content">
+          <div class="track-session">Hold · Outubro 2026</div>
+          <div class="track-name">Seeing What Others Don't</div>
+          <div class="track-desc">Jobs-to-be-done como lente de leitura do mundo. Exercício de observação etnográfica. Sessão de campo e debriefing em roda.</div>
+          <span class="track-phase-tag">HOLD · Alta Ação</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S03</div>
+        <div class="track-content">
+          <div class="track-session">Hold · Novembro 2026</div>
+          <div class="track-name">The Creative Mind Under Pressure</div>
+          <div class="track-desc">Criatividade não é inspiração — é método. Sessão de Alta Ação com Design Sprint comprimido para um desafio real da organização.</div>
+          <span class="track-phase-tag">HOLD · Alta Ação</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S04</div>
+        <div class="track-content">
+          <div class="track-session">Hold · Dezembro 2026</div>
+          <div class="track-name">Design Sprint: 90 Minutes</div>
+          <div class="track-desc">Versão comprimida do Design Sprint para um desafio real. Prototipagem rápida, feedback e iteração em uma única sessão.</div>
+          <span class="track-phase-tag">HOLD · Alta Ação</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S05</div>
+        <div class="track-content">
+          <div class="track-session">Hold · Janeiro 2027</div>
+          <div class="track-name">Failure as Method</div>
+          <div class="track-desc">Organizações que aprendem falham bem. Análise de casos de falha transformadora. Roda de sensemaking coletivo sobre os próprios erros.</div>
+          <span class="track-phase-tag">HOLD · Baixa Ação</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot peak">S06</div>
+        <div class="track-content">
+          <div class="track-session">Apogeu · Fevereiro 2027</div>
+          <div class="track-name">The Innovation Arena</div>
+          <div class="track-desc">Pico do arco. Simulação de pitch para banca interna. Defesa de propostas de inovação desenvolvidas ao longo das sessões anteriores. Alta pressão, alto aprendizado.</div>
+          <span class="track-phase-tag">HOLD · Apogeu</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S07</div>
+        <div class="track-content">
+          <div class="track-session">Land · Março 2027</div>
+          <div class="track-name">Systems Thinking for Innovators</div>
+          <div class="track-desc">Nenhuma inovação ocorre no vácuo. Mapeamento de sistemas de influência e resistência. Visão sistêmica como competência de liderança.</div>
+          <span class="track-phase-tag">LAND · Início</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S08</div>
+        <div class="track-content">
+          <div class="track-session">Land · Abril 2027</div>
+          <div class="track-name">Leading Innovation Without Authority</div>
+          <div class="track-desc">Como liderar processos de mudança sem poder formal. Influência, narrativa e construção de aliados. Roleplay de resistência organizacional.</div>
+          <span class="track-phase-tag">LAND · Alta Ação</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S09</div>
+        <div class="track-content">
+          <div class="track-session">Land · Maio 2027</div>
+          <div class="track-name">The Ethics of Disruption</div>
+          <div class="track-desc">Inovar é transgredir com propósito — mas que propósito justifica qual transgressão? Diálogo filosófico sobre responsabilidade e impacto sistêmico da inovação.</div>
+          <span class="track-phase-tag">LAND · Baixa Ação</span>
+        </div>
+      </div>
+
+      <div class="track-item">
+        <div class="track-dot">S10</div>
+        <div class="track-content">
+          <div class="track-session">Aterrizagem Cíclica · Junho 2027</div>
+          <div class="track-name">The Innovator You Became</div>
+          <div class="track-desc">Revisita à primeira sessão. Cada participante apresenta como sua relação com inovação mudou ao longo de 10 meses. Roda de aprendizagem final e celebração do arco completo.</div>
+          <span class="track-phase-tag">LAND · Encerramento</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ OUTPUTS ══════════════ -->
+<div class="outputs-section">
+  <div class="outputs-inner">
+    <div class="section-label">O que o Programa Produz</div>
+    <div class="section-title">
+      Não apenas<br>desenvolvimento individual —<br><em>capital coletivo.</em>
+    </div>
+
+    <div class="outputs-grid">
+      <div class="output-card">
+        <span class="output-symbol">↑</span>
+        <div class="output-title">Capacidade de Inovar</div>
+        <div class="output-desc">Ferramentas cognitivas e práticas para identificar oportunidades, reformular problemas e propor soluções originais com mais velocidade e confiança.</div>
+      </div>
+      <div class="output-card">
+        <span class="output-symbol">⟳</span>
+        <div class="output-title">Mentalidade de Aprendizagem</div>
+        <div class="output-desc">10 meses de exposição à metodologia da Inflexão instala uma forma diferente de aprender — reflexiva, coletiva, voltada para aplicação real — que persiste além do programa.</div>
+      </div>
+      <div class="output-card">
+        <span class="output-symbol">◇</span>
+        <div class="output-title">Rede de Inovação Interna</div>
+        <div class="output-desc">Vínculos entre participantes de diferentes áreas e níveis formam uma rede informal de inovação — multiplicadores que carregam a cultura criativa para além do programa.</div>
+      </div>
+      <div class="output-card">
+        <span class="output-symbol">→</span>
+        <div class="output-title">Projetos Reais Iniciados</div>
+        <div class="output-desc">A sessão de Arena e o Capstone final geram propostas concretas de inovação — entregáveis tangíveis que demonstram ROI claro do programa para a organização.</div>
+      </div>
+      <div class="output-card">
+        <span class="output-symbol">∞</span>
+        <div class="output-title">Liderança Adaptativa</div>
+        <div class="output-desc">Participantes saem mais capazes de liderar em contextos ambíguos, influenciar sem autoridade formal e construir alianças para mudanças que importam.</div>
+      </div>
+      <div class="output-card">
+        <span class="output-symbol">✦</span>
+        <div class="output-title">Efeito Disney</div>
+        <div class="output-desc">O objetivo final da Inflexão: participantes saem sentindo que viveram algo que nunca haviam experienciado — e que precisam mais. Aprendizagem que se torna desejo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ CLOSING ══════════════ -->
+<div class="closing">
+  <div class="closing-label">Inflexão · Living Lab Education · 2026</div>
+  <div class="gold-rule"></div>
+  <div class="closing-text">
+    Aprendizagem adulta não é<br>transferência de conteúdo.<br>
+    É <em>perturbação controlada</em><br>do que já se sabe.
+  </div>
+  <div class="closing-sub" style="margin-top:24px;">
+    Se isso ressoa com o que você quer construir para as pessoas da sua organização — vamos conversar.
+  </div>
+  <div class="closing-footer">
+    Metodologia: Kaospilot Learning Arches · Kolb Experiential Learning · Living Lab Education · SET · HOLD · LAND
+  </div>
+</div>
+
+</body>
+</html>
