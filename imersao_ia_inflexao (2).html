@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inflexão × Nedgex — AI Immersion for Venture Validation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b18;--bg2:#101024;--bg3:#181834;--bg4:#202048;--surface:#1c1c38;--text:#eaeaf2;--text2:#a4a4c4;--text3:#686890;--accent:#e94560;--accent2:#ff6b81;--teal:#16c79a;--teal2:#22e8b6;--blue:#4a90d9;--blue2:#6cb0ff;--amber:#f5a623;--amber2:#ffc857;--purple:#8b5cf6;--border:rgba(255,255,255,.05);--border2:rgba(255,255,255,.10);--radius:12px;--radius-sm:8px;--font:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+.w{max-width:1140px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.lang-bar{position:fixed;top:0;right:0;z-index:200;padding:14px 20px;display:flex;gap:6px}
+.lb{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:16px;border:1px solid var(--border2);background:rgba(12,12,24,.7);backdrop-filter:blur(12px);color:var(--text3);cursor:pointer;transition:all .2s}.lb:hover{color:var(--text)}.lb.on{background:var(--accent);border-color:var(--accent);color:#fff}
+[data-l="en"]{display:none}body.en [data-l="en"]{display:revert}body.en [data-l="pt"]{display:none}
+.hero{padding:64px 0 44px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(233,69,96,.12) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-140px;left:-40px;width:420px;height:420px;background:radial-gradient(circle,rgba(22,199,154,.08) 0%,transparent 70%);pointer-events:none}
+.ht{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.hb{font-family:var(--mono);font-size:11px;letter-spacing:3.5px;text-transform:uppercase;color:var(--teal)}
+.hf{font-size:12px;color:var(--text3)}.hf span{color:var(--text2);font-weight:500}
+.hero h1{font-size:clamp(26px,4.5vw,42px);font-weight:700;line-height:1.15;color:#fff;margin-bottom:12px}.hero h1 em{font-style:normal;color:var(--accent)}
+.hs{font-size:15px;color:var(--text2);max-width:620px;margin-bottom:20px;line-height:1.55}
+.chips{display:flex;gap:7px;flex-wrap:wrap}.ch{font-size:11px;padding:5px 13px;border-radius:20px;background:var(--bg3);color:var(--text2);border:1px solid var(--border2);font-weight:500}.ch.hot{background:rgba(233,69,96,.14);border-color:rgba(233,69,96,.28);color:var(--accent2)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,11,24,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);margin-bottom:36px}
+.ni{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.nb{font-family:var(--font);font-size:13px;font-weight:500;padding:13px 18px;color:var(--text3);background:none;border:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}.nb:hover{color:var(--text)}.nb.on{color:var(--accent);border-bottom-color:var(--accent)}
+.sec{display:none;padding-bottom:56px}.sec.on{display:block;animation:fu .35s ease}@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.st{font-size:21px;font-weight:700;margin-bottom:5px}.ss{font-size:14px;color:var(--text2);margin-bottom:26px;max-width:680px}.h3{font-size:16px;font-weight:600;margin-bottom:13px}.mb{margin-bottom:32px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:12px}.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.cd{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}.cd:hover{transform:translateY(-1px);border-color:var(--border2)}
+.cd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}.cd.cb::before{background:var(--blue)}.cd.ct::before{background:var(--teal)}.cd.ca::before{background:var(--amber)}.cd.cr::before{background:var(--accent)}
+.cd .tg{font-family:var(--mono);font-size:10px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:7px}
+.cd.cb .tg{color:var(--blue2)}.cd.ct .tg{color:var(--teal2)}.cd.ca .tg{color:var(--amber2)}.cd.cr .tg{color:var(--accent2)}
+.cd p{font-size:13px;color:var(--text2);line-height:1.55}.cd h4{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.cd.lb{border-left:3px solid var(--blue)}.cd.lt{border-left:3px solid var(--teal)}.cd.la{border-left:3px solid var(--accent)}.cd.ly{border-left:3px solid var(--amber)}
+.sr{display:flex;gap:5px;margin-bottom:32px;overflow-x:auto;padding-bottom:3px}.si{flex:1;min-width:96px;text-align:center;padding:11px 6px;border-radius:var(--radius-sm);font-size:11px;font-weight:600}
+.s1{background:#0f3460;color:#a0c4ff}.s2{background:#142952;color:#8ab4e8}.s3{background:#1a3a5c;color:#7aa8d8}.s4{background:#0e6b52;color:#60e8c0}.s5{background:#127a5c;color:#50d8a8}.s6{background:#8b2040;color:#ff8a9e}.s7{background:#7a5010;color:#ffd080}
+.tl{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:32px}.tt{font-size:11px;padding:5px 13px;border-radius:16px;background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
+.aw{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:28px 20px;margin-bottom:36px;overflow-x:auto}.aw h3{font-size:14px;font-weight:600;margin-bottom:3px}.aw .sub{font-size:12px;color:var(--text3);margin-bottom:18px}
+.as{width:100%;min-width:960px}.as svg{width:100%;height:auto;display:block}
+.leg{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.leg span{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}.leg i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.enc{margin-bottom:36px}.eh{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.eb{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#fff;flex-shrink:0}
+.e1 .eb{background:linear-gradient(135deg,#0f3460,#1a5276)}.e2 .eb{background:linear-gradient(135deg,#e94560,#c0392b)}
+.ei h3{font-size:17px;font-weight:600}.ei p{font-size:13px;color:var(--text2)}
+.xl{text-align:center;padding:14px 20px;border:1px dashed var(--border2);border-radius:var(--radius);color:var(--text3);font-size:13px;margin-bottom:36px;background:rgba(22,199,154,.03)}
+.ai{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;transition:border-color .25s}.ai:hover{border-color:var(--border2)}.ai.x{border-color:rgba(233,69,96,.2)}
+.at{display:flex;align-items:center;gap:10px;padding:14px 18px;cursor:pointer;width:100%;background:none;border:none;color:var(--text);font-family:var(--font);text-align:left}.at:hover{background:rgba(255,255,255,.015)}
+.atm{font-family:var(--mono);font-size:11px;color:var(--text3);min-width:74px;flex-shrink:0}.atn{font-size:14px;font-weight:500;flex:1}
+.pl{font-size:10px;font-weight:600;padding:3px 9px;border-radius:11px;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
+.ps{background:rgba(74,144,217,.14);color:var(--blue2)}.ph{background:rgba(22,199,154,.14);color:var(--teal2)}.pd{background:rgba(233,69,96,.14);color:var(--accent2)}.pp{background:rgba(245,166,35,.14);color:var(--amber2)}.pm{background:rgba(139,92,246,.14);color:#b89aff}
+.aa{width:18px;height:18px;flex-shrink:0;transition:transform .25s;color:var(--text3)}.ai.x .aa{transform:rotate(90deg)}
+.ab{max-height:0;overflow:hidden;transition:max-height .4s ease}.ai.x .ab{max-height:1200px}.ac{padding:0 18px 18px;display:grid;gap:14px}
+.db h5{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:5px}.db p{font-size:13px;color:var(--text2);line-height:1.6}.db strong{color:var(--text);font-weight:500}
+.ku{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kb{padding:11px 13px;border-radius:var(--radius-sm);font-size:12px;line-height:1.5}
+.kk{background:rgba(74,144,217,.07);border:1px solid rgba(74,144,217,.13);color:var(--blue2)}.ku2{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.13);color:var(--amber2)}
+.kt{font-family:var(--mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;display:block;margin-bottom:3px;opacity:.7}
+.ev{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}.eb2{padding:18px;border-radius:var(--radius)}
+.ep{background:rgba(22,199,154,.05);border:1px solid rgba(22,199,154,.13)}.em{background:rgba(233,69,96,.05);border:1px solid rgba(233,69,96,.13)}
+.eb2 h4{font-size:14px;font-weight:600;margin-bottom:7px}.ep h4{color:var(--teal2)}.em h4{color:var(--accent2)}.eb2 p{font-size:13px;color:var(--text2);line-height:1.55}
+.cb{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:20px;margin-top:24px}.cb h4{font-size:14px;font-weight:600;margin-bottom:7px;color:var(--teal)}.cb p{font-size:13px;color:var(--text2);line-height:1.55}
+.ft{text-align:center;padding:36px 0;color:var(--text3);font-size:12px;border-top:1px solid var(--border)}.ft a{color:var(--teal);text-decoration:none}
+@media(max-width:768px){.w{padding:0 16px}.hero{padding:40px 0 24px}.ku,.ev{grid-template-columns:1fr}.nb{padding:11px 13px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="lang-bar"><button class="lb on" id="bp" onclick="L('pt')">PT</button><button class="lb" id="be" onclick="L('en')">EN</button></div>
+<div class="w">
+<div class="hero">
+  <div class="ht"><div class="hb">Inflexão · Living Lab Education</div><div class="hf" data-l="pt">Proposta para <span>Nedgex</span></div><div class="hf" data-l="en">Proposal for <span>Nedgex</span></div></div>
+  <h1 data-l="pt">Imersão: IA para <em>Validação</em> de Empreendimentos</h1>
+  <h1 data-l="en">Immersion: AI for <em>Venture Validation</em></h1>
+  <p class="hs" data-l="pt">Dois encontros de 4h, totalmente hands-on, desenhados com arcos de aprendizagem para construir autonomia real com IA — preparado para a equipe Nedgex.</p>
+  <p class="hs" data-l="en">Two 4-hour sessions, fully hands-on, designed with learning arcs to build real AI autonomy — prepared for the Nedgex team.</p>
+  <div class="chips" data-l="pt"><span class="ch">2 × 4h ao vivo</span><span class="ch">Online · BR + DE</span><span class="ch">Inglês</span><span class="ch hot">70% prática</span><span class="ch hot">Monday-ready</span></div>
+  <div class="chips" data-l="en"><span class="ch">2 × 4h live</span><span class="ch">Online · BR + DE</span><span class="ch">English</span><span class="ch hot">70% practice</span><span class="ch hot">Monday-ready</span></div>
+</div>
+</div>
+<nav class="nav"><div class="ni">
+  <button class="nb on" data-n="0" data-l="pt" onclick="G(0)">1. Definir</button><button class="nb" data-n="1" data-l="pt" onclick="G(1)">2. Design</button><button class="nb" data-n="2" data-l="pt" onclick="G(2)">3. Arcos</button><button class="nb" data-n="3" data-l="pt" onclick="G(3)">4. Programa</button><button class="nb" data-n="4" data-l="pt" onclick="G(4)">5. Facilitar</button><button class="nb" data-n="5" data-l="pt" onclick="G(5)">6. Descobrir</button>
+  <button class="nb on" data-n="0" data-l="en" onclick="G(0)">1. Define</button><button class="nb" data-n="1" data-l="en" onclick="G(1)">2. Design</button><button class="nb" data-n="2" data-l="en" onclick="G(2)">3. Arcs</button><button class="nb" data-n="3" data-l="en" onclick="G(3)">4. Program</button><button class="nb" data-n="4" data-l="en" onclick="G(4)">5. Facilitate</button><button class="nb" data-n="5" data-l="en" onclick="G(5)">6. Discover</button>
+</div></nav>
+<div class="w">
+
+<!-- S0: DEFINE -->
+<div class="sec on" data-s="0">
+<div data-l="pt"><h2 class="st">Definir — Conteúdo, Condições e Caráter</h2><p class="ss">SKAVs, 7Cs e condições de trabalho desenhadas para a equipe Nedgex.</p></div>
+<div data-l="en"><h2 class="st">Define — Content, Conditions & Character</h2><p class="ss">SKAVs, 7Cs and working conditions designed for the Nedgex team.</p></div>
+<p class="h3">SKAVs</p>
+<div class="g4 mb" data-l="pt">
+  <div class="cd cb"><div class="tg">Skills</div><p>Engenharia de prompts, fluxos de validação com IA, simulação de cenários, prototipagem de hipóteses, pesquisa de mercado assistida.</p></div>
+  <div class="cd ct"><div class="tg">Knowledge</div><p>Modelos de validação, limitações da IA generativa, frameworks de experimentação, governança de IA em negócios.</p></div>
+  <div class="cd ca"><div class="tg">Attitudes</div><p>Mentalidade experimental, conforto com ambiguidade, iteração rápida, curiosidade ativa, coragem para testar.</p></div>
+  <div class="cd cr"><div class="tg">Values</div><p>Autonomia, pensamento crítico, colaboração interdisciplinar, viés para ação, responsabilidade ética.</p></div>
+</div>
+<div class="g4 mb" data-l="en">
+  <div class="cd cb"><div class="tg">Skills</div><p>Prompt engineering, AI validation workflows, scenario simulation, hypothesis prototyping, AI-assisted market research.</p></div>
+  <div class="cd ct"><div class="tg">Knowledge</div><p>Validation models, generative AI limitations, experimentation frameworks, AI governance in business.</p></div>
+  <div class="cd ca"><div class="tg">Attitudes</div><p>Experimental mindset, comfort with ambiguity, rapid iteration, active curiosity, courage to test.</p></div>
+  <div class="cd cr"><div class="tg">Values</div><p>Autonomy, critical thinking, cross-disciplinary collaboration, bias for action, ethical responsibility.</p></div>
+</div>
+<div data-l="pt"><p class="h3">Os 7Cs — sequência de ativação</p></div><div data-l="en"><p class="h3">The 7Cs — activation sequence</p></div>
+<div class="sr mb">
+  <div class="si s1" data-l="pt">1. Conexão</div><div class="si s1" data-l="en">1. Connection</div>
+  <div class="si s2" data-l="pt">2. Condições</div><div class="si s2" data-l="en">2. Conditions</div>
+  <div class="si s3" data-l="pt">3. Contexto</div><div class="si s3" data-l="en">3. Context</div>
+  <div class="si s4" data-l="pt">4. Conteúdo</div><div class="si s4" data-l="en">4. Content</div>
+  <div class="si s5" data-l="pt">5. Ofício</div><div class="si s5" data-l="en">5. Craft</div>
+  <div class="si s6" data-l="pt">6. Caráter</div><div class="si s6" data-l="en">6. Character</div>
+  <div class="si s7" data-l="pt">7. Confiança</div><div class="si s7" data-l="en">7. Confidence</div>
+</div>
+<div data-l="pt"><p class="h3">Condições e frames</p></div><div data-l="en"><p class="h3">Conditions & frames</p></div>
+<div class="g4 mb" data-l="pt">
+  <div class="cd"><h4>Regras e papéis</h4><p>Trios rotativos como "mini-labs de validação". Papéis: explorador, crítico, integrador.</p></div>
+  <div class="cd"><h4>Entregáveis</h4><p>E1: fluxo de validação pessoal. E2: protótipo em projeto real Nedgex + 3 Monday Moves.</p></div>
+  <div class="cd"><h4>Expectativas</h4><p>≥1 fluxo replicável. Prática > perfeição. "Bom o suficiente para testar".</p></div>
+  <div class="cd"><h4>Tempo</h4><p>2×4h com 2-5 dias entre eles. Alta ação + pausas para consolidar.</p></div>
+</div>
+<div class="g4 mb" data-l="en">
+  <div class="cd"><h4>Roles & rules</h4><p>Rotating trios as "mini validation labs". Roles: explorer, critic, integrator.</p></div>
+  <div class="cd"><h4>Deliverables</h4><p>S1: personal validation workflow. S2: prototype on real Nedgex project + 3 Monday Moves.</p></div>
+  <div class="cd"><h4>Expectations</h4><p>≥1 replicable workflow. Practice > perfection. "Good enough to test".</p></div>
+  <div class="cd"><h4>Time</h4><p>2×4h with 2-5 days between. High action + consolidation pauses.</p></div>
+</div>
+</div>
+
+<!-- S1: DESIGN -->
+<div class="sec" data-s="1">
+<div data-l="pt"><h2 class="st">Design — Plano e Tática</h2><p class="ss">Estilo de aprendizagem, ferramentas e exercícios centrais.</p></div>
+<div data-l="en"><h2 class="st">Design — Plan & Tactics</h2><p class="ss">Learning style, tools and core exercises.</p></div>
+<div data-l="pt"><p class="h3">Estratégia pedagógica</p></div><div data-l="en"><p class="h3">Pedagogical strategy</p></div>
+<div class="g4 mb" data-l="pt">
+  <div class="cd lb"><h4>Act → Learn → Adapt</h4><p>Experimentação imediata, reflexão estruturada, teoria just-in-time.</p></div>
+  <div class="cd lt"><h4>Equilíbrio 70/20/10</h4><p>70% prática, 20% reflexão, 10% micro-doses de teoria.</p></div>
+  <div class="cd la"><h4>Distúrbios criativos</h4><p>Trocar projetos, IA destruindo ideias, restrições inesperadas.</p></div>
+  <div class="cd ly"><h4>Ativação de conteúdo</h4><p>Micro-leituras entre encontros. Framework visual ativado pela prática.</p></div>
+</div>
+<div class="g4 mb" data-l="en">
+  <div class="cd lb"><h4>Act → Learn → Adapt</h4><p>Immediate experimentation, structured reflection, just-in-time theory.</p></div>
+  <div class="cd lt"><h4>Balance: 70/20/10</h4><p>70% practice, 20% reflection, 10% micro-dose theory.</p></div>
+  <div class="cd la"><h4>Creative disturbances</h4><p>Swap projects, AI destroying ideas, unexpected constraints.</p></div>
+  <div class="cd ly"><h4>Content activation</h4><p>Micro-readings between sessions. Visual framework activated by practice.</p></div>
+</div>
+<div data-l="pt"><p class="h3">Ferramentas</p></div><div data-l="en"><p class="h3">Tools</p></div>
+<div class="tl mb"><span class="tt">ChatGPT / Claude</span><span class="tt">Prompt Chaining</span><span class="tt">Perplexity AI</span><span class="tt">Validation Canvas</span><span class="tt">Miro / FigJam</span><span class="tt">JTBD</span><span class="tt">Lean Experiment Canvas</span><span class="tt">AI Persona Simulation</span><span class="tt">CRISPE</span><span class="tt">Chain-of-Thought</span></div>
+<div data-l="pt"><p class="h3">3 exercícios centrais</p></div><div data-l="en"><p class="h3">3 core exercises</p></div>
+<div class="g3 mb" data-l="pt">
+  <div class="cd"><div class="tg" style="color:var(--text3)">Ex #1 · Encontro 1</div><h4>Sprint de descoberta</h4><p>30min: mapear problema real com IA — stakeholders, dores, alternativas. Output: mapa de problema validado.</p></div>
+  <div class="cd"><div class="tg" style="color:var(--text3)">Ex #2 · Encontro 1</div><h4>Fábrica de hipóteses</h4><p>45min: gerar 10 hipóteses, priorizar, selecionar 3, desenhar experimentos com métricas.</p></div>
+  <div class="cd"><div class="tg" style="color:var(--text3)">Ex #3 · Encontro 2</div><h4>Validação ao vivo</h4><p>Fluxo completo em projeto real Nedgex: problema → pesquisa → hipóteses → teste → plano.</p></div>
+</div>
+<div class="g3 mb" data-l="en">
+  <div class="cd"><div class="tg" style="color:var(--text3)">Ex #1 · Session 1</div><h4>Discovery sprint</h4><p>30min: map a real problem with AI — stakeholders, pains, alternatives. Output: validated problem map.</p></div>
+  <div class="cd"><div class="tg" style="color:var(--text3)">Ex #2 · Session 1</div><h4>Hypothesis factory</h4><p>45min: generate 10 hypotheses, prioritize, select 3, design experiments with metrics.</p></div>
+  <div class="cd"><div class="tg" style="color:var(--text3)">Ex #3 · Session 2</div><h4>Live validation</h4><p>Full workflow on a real Nedgex project: problem → research → hypotheses → test → plan.</p></div>
+</div>
+</div>
+
+<!-- S2: ARCH MAP -->
+<div class="sec" data-s="2">
+<div data-l="pt"><h2 class="st">Mapa dos Arcos de Aprendizagem</h2><p class="ss">Cada arco: Set → Hold → Land. Complexidade crescente.</p></div>
+<div data-l="en"><h2 class="st">Learning Arch Map</h2><p class="ss">Each arc: Set → Hold → Land. Increasing complexity.</p></div>
+<div class="aw">
+  <h3 data-l="pt">Jornada de Aprendizagem — Inflexão × Nedgex</h3><h3 data-l="en">Learning Journey — Inflexão × Nedgex</h3>
+  <div class="sub" data-l="pt">Known (acima) · Unknown (abaixo) · Complexidade →</div><div class="sub" data-l="en">Known (above) · Unknown (below) · Complexity →</div>
+  <div class="as">
+    <svg viewBox="0 0 1100 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="tl" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4a90d9" stop-opacity=".25"/><stop offset="100%" stop-color="#e94560" stop-opacity=".25"/></linearGradient>
+        <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e94560" stop-opacity=".06"/><stop offset="100%" stop-color="transparent"/></linearGradient>
+        <filter id="gl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <!-- Grid -->
+      <g opacity=".035" stroke="#fff" stroke-width=".4">
+        <line x1="40" y1="300" x2="1060" y2="300" stroke-dasharray="1,10" opacity=".8"/>
+        <line x1="460" y1="50" x2="460" y2="470" stroke-dasharray="1,10"/>
+        <line x1="540" y1="50" x2="540" y2="470" stroke-dasharray="1,10"/>
+        <line x1="980" y1="50" x2="980" y2="470" stroke-dasharray="1,10"/>
+      </g>
+      <!-- Labels -->
+      <text x="20" y="180" fill="#4a90d9" font-family="JetBrains Mono,monospace" font-size="7.5" letter-spacing="2" opacity=".4" transform="rotate(-90,20,180)">KNOWN</text>
+      <text x="20" y="415" fill="#f5a623" font-family="JetBrains Mono,monospace" font-size="7.5" letter-spacing="2" opacity=".4" transform="rotate(-90,20,415)">UNKNOWN</text>
+      <text x="550" y="28" fill="rgba(255,255,255,.15)" font-family="JetBrains Mono,monospace" font-size="7.5" text-anchor="middle" letter-spacing="3">SKILLS · KNOWLEDGE · METHODS · THEORY</text>
+      <text x="550" y="490" fill="rgba(255,255,255,.15)" font-family="JetBrains Mono,monospace" font-size="7.5" text-anchor="middle" letter-spacing="3">VALUES · MINDSETS · ATTITUDES · COMPETENCIES</text>
+      <!-- Timeline -->
+      <line x1="40" y1="300" x2="1060" y2="300" stroke="url(#tl)" stroke-width="1.5"/>
+      <polygon points="1058,296 1068,300 1058,304" fill="rgba(233,69,96,.3)"/>
+      <text x="95" y="314" fill="rgba(255,255,255,.2)" font-family="JetBrains Mono,monospace" font-size="7">SESSION 1</text>
+      <text x="485" y="314" fill="rgba(255,255,255,.2)" font-family="JetBrains Mono,monospace" font-size="7">GAP</text>
+      <text x="610" y="314" fill="rgba(255,255,255,.2)" font-family="JetBrains Mono,monospace" font-size="7">SESSION 2</text>
+
+      <!-- ARC 1: Call to Adventure -->
+      <path d="M60,300 C60,265 78,232 95,218 C112,204 128,204 145,218 C162,232 170,265 170,300" fill="none" stroke="#4a90d9" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+      <path d="M60,300 C60,332 78,360 95,372 C112,384 128,384 145,372 C162,360 170,332 170,300" fill="none" stroke="#4a90d9" stroke-width=".9" stroke-dasharray="3,5" stroke-linecap="round" opacity=".25"/>
+      <text x="115" y="210" fill="#6cb0ff" font-family="DM Sans,sans-serif" font-size="9" text-anchor="middle" font-weight="600">Call to Adventure</text>
+
+      <!-- ARC 2: Prompts -->
+      <path d="M165,300 C165,240 195,175 230,145 C265,115 285,115 315,145 C345,175 365,240 365,300" fill="none" stroke="#16c79a" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+      <path d="M165,300 C165,350 195,398 230,418 C265,438 285,438 315,418 C345,398 365,350 365,300" fill="none" stroke="#16c79a" stroke-width="1" stroke-dasharray="3,5" stroke-linecap="round" opacity=".22"/>
+      <text x="265" y="115" fill="#22e8b6" font-family="DM Sans,sans-serif" font-size="10" text-anchor="middle" font-weight="600">Prompts as</text>
+      <text x="265" y="128" fill="#22e8b6" font-family="DM Sans,sans-serif" font-size="10" text-anchor="middle" font-weight="600">Thinking Tools</text>
+      <circle cx="265" cy="142" r="2.5" fill="#8b5cf6" opacity=".5"/>
+      <line x1="265" y1="145" x2="265" y2="155" stroke="#8b5cf6" stroke-width="1" opacity=".4" stroke-linecap="round"/>
+
+      <!-- ARC 3: Discovery Sprint -->
+      <path d="M320,300 C320,222 355,148 395,108 C435,68 450,68 462,95" fill="none" stroke="#e94560" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+      <path d="M320,300 C320,368 355,428 395,448 C435,468 450,460 462,435" fill="none" stroke="#e94560" stroke-width="1" stroke-dasharray="3,5" stroke-linecap="round" opacity=".22"/>
+      <text x="388" y="72" fill="#ff6b81" font-family="DM Sans,sans-serif" font-size="10.5" text-anchor="middle" font-weight="600">Discovery Sprint</text>
+
+      <!-- ARC 4: Hypothesis Factory -->
+      <path d="M365,300 C365,245 390,185 418,155 C446,125 454,125 462,155 C466,172 466,240 466,300" fill="none" stroke="#f5a623" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+      <path d="M365,300 C365,342 390,380 418,398 C446,416 458,410 466,380 C468,368 468,340 468,300" fill="none" stroke="#f5a623" stroke-width=".9" stroke-dasharray="3,5" stroke-linecap="round" opacity=".2"/>
+      <text x="415" y="140" fill="#ffc857" font-family="DM Sans,sans-serif" font-size="10" text-anchor="middle" font-weight="600">Hypothesis Factory</text>
+
+      <!-- Landing E1 -->
+      <rect x="440" y="288" width="44" height="24" rx="5" fill="rgba(233,69,96,.08)" stroke="#e94560" stroke-width=".5"/>
+      <text x="462" y="304" fill="#ff6b81" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle" font-weight="500">LAND</text>
+
+      <!-- X-Level Gap -->
+      <path d="M484,300 C484,275 500,256 512,250 C524,244 534,252 542,272 C546,282 546,292 546,300" fill="none" stroke="#8b5cf6" stroke-width="1.2" stroke-dasharray="4,5" stroke-linecap="round" opacity=".4"/>
+      <text x="515" y="242" fill="#b89aff" font-family="DM Sans,sans-serif" font-size="8.5" text-anchor="middle" font-weight="500" data-l="pt">Experimentação</text>
+      <text x="515" y="253" fill="#b89aff" font-family="DM Sans,sans-serif" font-size="8.5" text-anchor="middle" font-weight="500" data-l="pt">autônoma</text>
+      <text x="515" y="242" fill="#b89aff" font-family="DM Sans,sans-serif" font-size="8.5" text-anchor="middle" font-weight="500" data-l="en">Autonomous</text>
+      <text x="515" y="253" fill="#b89aff" font-family="DM Sans,sans-serif" font-size="8.5" text-anchor="middle" font-weight="500" data-l="en">practice</text>
+
+      <!-- ARC 6: Loop Landing -->
+      <path d="M546,300 C546,265 568,235 590,222 C612,209 632,209 650,222 C668,235 680,265 680,300" fill="none" stroke="#f5a623" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
+      <path d="M546,300 C546,330 568,358 590,370 C612,382 632,382 650,370 C668,358 680,330 680,300" fill="none" stroke="#f5a623" stroke-width=".9" stroke-dasharray="3,5" stroke-linecap="round" opacity=".2"/>
+      <text x="613" y="214" fill="#ffc857" font-family="DM Sans,sans-serif" font-size="9" text-anchor="middle" font-weight="600">Loop Landing</text>
+      <path d="M554,288 C546,278 546,266 554,258" fill="none" stroke="#f5a623" stroke-width=".8" stroke-linecap="round" opacity=".35"/>
+      <polygon points="555,256 559,262 552,262" fill="#f5a623" opacity=".35"/>
+
+      <!-- ARC 7: Governance -->
+      <path d="M660,300 C660,252 688,205 720,180 C752,155 775,155 800,180 C825,205 840,252 840,300" fill="none" stroke="#4a90d9" stroke-width="1.6" stroke-linecap="round" opacity=".65"/>
+      <path d="M660,300 C660,342 688,382 720,400 C752,418 775,418 800,400 C825,382 840,342 840,300" fill="none" stroke="#4a90d9" stroke-width=".9" stroke-dasharray="3,5" stroke-linecap="round" opacity=".2"/>
+      <text x="750" y="168" fill="#6cb0ff" font-family="DM Sans,sans-serif" font-size="10" text-anchor="middle" font-weight="500">Risks & Governance</text>
+
+      <!-- ARC 8: LIVE VALIDATION -->
+      <path d="M750,300 C750,200 790,118 840,78 C890,45 920,45 950,78 C968,98 978,165 980,300" fill="none" stroke="#e94560" stroke-width="2.5" stroke-linecap="round" opacity=".85" filter="url(#gl)"/>
+      <path d="M750,300 C750,385 790,445 840,462 C890,478 920,472 950,455 C968,442 978,385 980,300" fill="none" stroke="#e94560" stroke-width="1.3" stroke-dasharray="4,5" stroke-linecap="round" opacity=".22"/>
+      <path d="M750,300 C750,200 790,118 840,78 C890,45 920,45 950,78 C968,98 978,165 980,300 Z" fill="url(#ag)" opacity=".4"/>
+      <text x="866" y="56" fill="#ff6b81" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" font-weight="700">LIVE VALIDATION</text>
+      <circle cx="835" cy="82" r="2.5" fill="#8b5cf6" opacity=".45"/>
+      <circle cx="905" cy="62" r="2.5" fill="#8b5cf6" opacity=".45"/>
+      <line x1="835" y1="85" x2="835" y2="95" stroke="#8b5cf6" stroke-width=".8" opacity=".35" stroke-linecap="round"/>
+      <line x1="905" y1="65" x2="905" y2="75" stroke="#8b5cf6" stroke-width=".8" opacity=".35" stroke-linecap="round"/>
+      <text x="870" y="100" fill="#b89aff" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle" opacity=".35">hotspots</text>
+
+      <!-- Showcase + Grand Landing -->
+      <rect x="918" y="288" width="62" height="24" rx="5" fill="rgba(22,199,154,.06)" stroke="#16c79a" stroke-width=".5"/>
+      <text x="949" y="304" fill="#22e8b6" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">SHOWCASE</text>
+      <rect x="965" y="262" width="76" height="24" rx="5" fill="rgba(233,69,96,.08)" stroke="#e94560" stroke-width=".5"/>
+      <text x="1003" y="278" fill="#ff6b81" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle">GRAND LAND</text>
+
+      <!-- Post continuity -->
+      <path d="M980,300 C980,278 1008,260 1028,255 C1048,250 1055,262 1058,300" fill="none" stroke="#16c79a" stroke-width="1" stroke-dasharray="4,5" stroke-linecap="round" opacity=".3"/>
+      <text x="1032" y="248" fill="#22e8b6" font-family="DM Sans,sans-serif" font-size="7.5" text-anchor="middle" opacity=".35">follow-up</text>
+
+      <!-- X-Level full -->
+      <path d="M60,300 C60,80 380,40 555,40 C730,40 1060,80 1060,300" fill="none" stroke="rgba(255,255,255,.035)" stroke-width=".7" stroke-dasharray="6,8"/>
+      <text x="555" y="46" fill="rgba(255,255,255,.1)" font-family="JetBrains Mono,monospace" font-size="7" text-anchor="middle" letter-spacing="1.5">X-LEVEL: FULL JOURNEY</text>
+
+      <!-- HS -->
+      <circle cx="1042" cy="392" r="15" fill="rgba(233,69,96,.08)" stroke="#e94560" stroke-width=".6"/>
+      <text x="1042" y="396" fill="#ff6b81" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle" font-weight="700">HS</text>
+    </svg>
+  </div>
+  <div class="leg" data-l="pt">
+    <span><i style="background:#4a90d9"></i> Set</span><span><i style="background:#16c79a"></i> Hold</span><span><i style="background:#e94560"></i> Land</span><span><i style="background:#f5a623"></i> Loop</span><span><i style="background:#8b5cf6"></i> Mid / X-level</span><span style="opacity:.5">— — Unknown (abaixo)</span>
+  </div>
+  <div class="leg" data-l="en">
+    <span><i style="background:#4a90d9"></i> Set</span><span><i style="background:#16c79a"></i> Hold</span><span><i style="background:#e94560"></i> Land</span><span><i style="background:#f5a623"></i> Loop</span><span><i style="background:#8b5cf6"></i> Mid / X-level</span><span style="opacity:.5">— — Unknown (below)</span>
+  </div>
+</div>
+<div class="g4" data-l="pt">
+  <div class="cd"><h4>Acima: Known</h4><p>Skills, knowledge, métodos. Arcos maiores = blocos mais complexos.</p></div>
+  <div class="cd"><h4>Abaixo: Unknown</h4><p>Atitudes, mindsets, valores. Tracejado = desenvolvimento pessoal.</p></div>
+  <div class="cd"><h4>Progressão →</h4><p>Complexidade cresce, facilitação diminui, autonomia aumenta.</p></div>
+  <div class="cd"><h4>Set → Hold → Land</h4><p>Todo arco é aberto, sustentado e aterrissado.</p></div>
+</div>
+<div class="g4" data-l="en">
+  <div class="cd"><h4>Above: Known</h4><p>Skills, knowledge, methods. Larger arcs = more complex blocks.</p></div>
+  <div class="cd"><h4>Below: Unknown</h4><p>Attitudes, mindsets, values. Dashed = personal development.</p></div>
+  <div class="cd"><h4>Progression →</h4><p>Complexity grows, facilitation decreases, autonomy rises.</p></div>
+  <div class="cd"><h4>Set → Hold → Land</h4><p>Every arc is opened, sustained and landed.</p></div>
+</div>
+</div>
+
+<!-- S3: PROGRAM -->
+<div class="sec" data-s="3">
+<div data-l="pt"><h2 class="st">Programa Detalhado</h2><p class="ss">Clique em cada arco para detalhes.</p></div>
+<div data-l="en"><h2 class="st">Detailed Program</h2><p class="ss">Click each arc for details.</p></div>
+
+<div class="enc e1"><div class="eh"><div class="eb">1</div><div class="ei">
+  <h3 data-l="pt">Encontro 1 — "Ativar o Músculo"</h3><h3 data-l="en">Session 1 — "Activate the Muscle"</h3>
+  <p data-l="pt">4h · Conexão → Contexto → Conteúdo</p><p data-l="en">4h · Connection → Context → Content</p>
+</div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">0:00–0:25</span><span class="atn" data-l="pt">Arco 1: Call to Adventure</span><span class="atn" data-l="en">Arc 1: Call to Adventure</span><span class="pl ps">Set</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>O que acontece</h5><p>Demo ao vivo: validar uma ideia em 5min com IA. Mapa visual dos arcos. Co-criar regras. Formar trios. Floor mapping 1-10.</p></div>
+  <div class="db" data-l="en"><h5>What happens</h5><p>Live demo: validate an idea in 5min with AI. Visual arch map. Co-create rules. Form trios. Floor mapping 1-10.</p></div>
+  <div class="ku"><div class="kb kk"><span class="kt">Known</span><span data-l="pt">IA generativa, ferramentas disponíveis</span><span data-l="en">Generative AI, available tools</span></div><div class="kb ku2"><span class="kt">Unknown</span><span data-l="pt">Confiança para experimentar</span><span data-l="en">Confidence to experiment</span></div></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">0:25–1:15</span><span class="atn" data-l="pt">Arco 2: Prompt como Pensamento</span><span class="atn" data-l="en">Arc 2: Prompts as Thinking</span><span class="pl ph">Hold</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>O que acontece</h5><p><strong>Prática primeiro:</strong> 15min intuitivos → reflexão → <strong>knowledge disturbance</strong> (CRISPE, role prompting, chain-of-thought) → segunda rodada comparativa.</p></div>
+  <div class="db" data-l="en"><h5>What happens</h5><p><strong>Practice first:</strong> 15min intuitive → reflection → <strong>knowledge disturbance</strong> (CRISPE, role prompting, chain-of-thought) → comparative second round.</p></div>
+  <div class="ku"><div class="kb kk"><span class="kt">Known</span><span data-l="pt">Frameworks de prompt</span><span data-l="en">Prompt frameworks</span></div><div class="kb ku2"><span class="kt">Unknown</span><span data-l="pt">Conforto com iteração</span><span data-l="en">Comfort with iteration</span></div></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">1:15–1:30</span><span class="atn" data-l="pt">Intervalo Ativo</span><span class="atn" data-l="en">Active Break</span><span class="pl pm">Mid</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac"><div class="db" data-l="pt"><h5>O que acontece</h5><p>1 insight + 1 dúvida no Miro. Facilitador calibra a sessão.</p></div><div class="db" data-l="en"><h5>What happens</h5><p>1 insight + 1 question on Miro. Facilitator calibrates session.</p></div></div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">1:30–2:30</span><span class="atn" data-l="pt">Arco 3: Sprint de Descoberta</span><span class="atn" data-l="en">Arc 3: Discovery Sprint</span><span class="pl ph">Hold</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>Exercício #1</h5><p>Problema real → IA mapeia stakeholders, dores, mercado. Hotspots: "e se não existir?", "peça contra-dados".</p></div>
+  <div class="db" data-l="en"><h5>Exercise #1</h5><p>Real problem → AI maps stakeholders, pains, market. Hotspots: "what if it doesn't exist?", "ask for counter-data".</p></div>
+  <div class="ku"><div class="kb kk"><span class="kt">Known</span><span data-l="pt">Pesquisa de mercado com IA</span><span data-l="en">AI market research</span></div><div class="kb ku2"><span class="kt">Unknown</span><span data-l="pt">Autonomia investigativa</span><span data-l="en">Investigative autonomy</span></div></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">2:30–3:15</span><span class="atn" data-l="pt">Arco 4: Fábrica de Hipóteses</span><span class="atn" data-l="en">Arc 4: Hypothesis Factory</span><span class="pl ph">Hold</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>Exercício #2</h5><p>10 hipóteses → priorizar → 3 selecionadas → experimentos. <strong>Creative disturbance:</strong> trios trocam projetos para contra-argumentar.</p></div>
+  <div class="db" data-l="en"><h5>Exercise #2</h5><p>10 hypotheses → prioritize → 3 selected → experiments. <strong>Creative disturbance:</strong> trios swap projects to counter-argue.</p></div>
+  <div class="ku"><div class="kb kk"><span class="kt">Known</span><span data-l="pt">Lean canvas, design de experimentos</span><span data-l="en">Lean canvas, experiment design</span></div><div class="kb ku2"><span class="kt">Unknown</span><span data-l="pt">Desprendimento, feedback</span><span data-l="en">Letting go, feedback</span></div></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">3:15–4:00</span><span class="atn" data-l="pt">Arco 5: Landing</span><span class="atn" data-l="en">Arc 5: Landing</span><span class="pl pd">Land</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>O que acontece</h5><p>Fishbowl 3min/trio. Feedback: "1 surpresa + 1 sugestão". Tarefa: aplicar 1 fluxo a projeto Nedgex. Floor mapping confiança 1-10.</p></div>
+  <div class="db" data-l="en"><h5>What happens</h5><p>Fishbowl 3min/trio. Feedback: "1 surprise + 1 suggestion". Task: apply 1 workflow to Nedgex project. Floor mapping confidence 1-10.</p></div>
+</div></div></div>
+</div>
+
+<div class="xl" data-l="pt">↓ 2-5 dias — experimentação autônoma com projetos Nedgex ↓</div>
+<div class="xl" data-l="en">↓ 2-5 days — autonomous experimentation with Nedgex projects ↓</div>
+
+<div class="enc e2"><div class="eh"><div class="eb">2</div><div class="ei">
+  <h3 data-l="pt">Encontro 2 — "Construir o Fluxo"</h3><h3 data-l="en">Session 2 — "Build the Workflow"</h3>
+  <p data-l="pt">4h · Ofício → Caráter → Confiança</p><p data-l="en">4h · Craft → Character → Confidence</p>
+</div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">0:00–0:30</span><span class="atn" data-l="pt">Arco 6: Loop Landing</span><span class="atn" data-l="en">Arc 6: Loop Landing</span><span class="pl pp">Loop</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>O que acontece</h5><p>2min/pessoa: o que experimentaram, o que funcionou, onde travou. Padrões coletados no Miro.</p></div>
+  <div class="db" data-l="en"><h5>What happens</h5><p>2min/person: what they experimented, what worked, what blocked. Patterns collected on Miro.</p></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">0:30–1:00</span><span class="atn" data-l="pt">Arco 7: Riscos e Governança</span><span class="atn" data-l="en">Arc 7: Risks & Governance</span><span class="pl ps">Set</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>O que acontece</h5><p>15min: alucinações, vieses, governança. Exercício: output problemático para analisar e corrigir. <strong>"Como não se enganar."</strong></p></div>
+  <div class="db" data-l="en"><h5>What happens</h5><p>15min: hallucinations, biases, governance. Exercise: problematic output to analyze and fix. <strong>"How not to get fooled."</strong></p></div>
+  <div class="ku"><div class="kb kk"><span class="kt">Known</span><span data-l="pt">Verificação, governança</span><span data-l="en">Verification, governance</span></div><div class="kb ku2"><span class="kt">Unknown</span><span data-l="pt">Julgamento calibrado</span><span data-l="en">Calibrated judgment</span></div></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">1:00–2:30</span><span class="atn" data-l="pt">Arco 8: Validação ao Vivo</span><span class="atn" data-l="en">Arc 8: Live Validation</span><span class="pl ph">Hold</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>Exercício #3 — o principal</h5><p>Projeto real Nedgex: <strong>problema → mercado → hipóteses → desejabilidade → plano.</strong> Hotspots: "5 motivos de falha" (45min), "troca de críticos" (75min).</p></div>
+  <div class="db" data-l="en"><h5>Exercise #3 — the main one</h5><p>Real Nedgex project: <strong>problem → market → hypotheses → desirability → plan.</strong> Hotspots: "5 reasons it'll fail" (45min), "swap critics" (75min).</p></div>
+  <div class="ku"><div class="kb kk"><span class="kt">Known</span><span data-l="pt">Fluxo completo, simulação</span><span data-l="en">Full workflow, simulation</span></div><div class="kb ku2"><span class="kt">Unknown</span><span data-l="pt">Autonomia, resiliência</span><span data-l="en">Autonomy, resilience</span></div></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">2:30–2:45</span><span class="atn" data-l="pt">Intervalo + Pitch</span><span class="atn" data-l="en">Break + Pitch Prep</span><span class="pl pm">Mid</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac"><div class="db" data-l="pt"><h5>O que acontece</h5><p>Sintetizar fluxo em pitch de 5min. Usar IA para síntese.</p></div><div class="db" data-l="en"><h5>What happens</h5><p>Synthesize workflow into 5min pitch. Use AI for synthesis.</p></div></div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">2:45–3:30</span><span class="atn" data-l="pt">Arco 9: Showcase</span><span class="atn" data-l="en">Arc 9: Showcase</span><span class="pl pd">Land</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>O que acontece</h5><p>5min pitch + 5min feedback. Critérios: replicabilidade, clareza, uso criativo da IA. Celebrar.</p></div>
+  <div class="db" data-l="en"><h5>What happens</h5><p>5min pitch + 5min feedback. Criteria: replicability, clarity, creative AI use. Celebrate.</p></div>
+</div></div></div>
+
+<div class="ai" onclick="T(this)"><button class="at"><span class="atm">3:30–4:00</span><span class="atn" data-l="pt">Arco 10: Grand Landing</span><span class="atn" data-l="en">Arc 10: Grand Landing</span><span class="pl pp">Loop</span><svg class="aa" viewBox="0 0 20 20" fill="none"><path d="M7 5l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="ab"><div class="ac">
+  <div class="db" data-l="pt"><h5>Landing final</h5><p><strong>3 Monday Moves</strong> por participante. Avaliação +/−. Floor mapping final (comparar com E1). Arco de continuidade.</p></div>
+  <div class="db" data-l="en"><h5>Final landing</h5><p><strong>3 Monday Moves</strong> per participant. +/− evaluation. Final floor mapping (compare with S1). Continuity arc.</p></div>
+  <div class="db" data-l="pt"><h5>Entregáveis</h5><p>1 fluxo documentado · 3 Monday Moves · Biblioteca de prompts · Board coletivo · Método replicável.</p></div>
+  <div class="db" data-l="en"><h5>Deliverables</h5><p>1 documented workflow · 3 Monday Moves · Prompt library · Collective board · Replicable method.</p></div>
+</div></div></div>
+</div>
+</div>
+
+<!-- S4: FACILITATE -->
+<div class="sec" data-s="4">
+<div data-l="pt"><h2 class="st">Facilitar — Set, Hold e Land</h2><p class="ss">Orientações práticas para cada fase.</p></div>
+<div data-l="en"><h2 class="st">Facilitate — Set, Hold & Land</h2><p class="ss">Practical guidance for each phase.</p></div>
+<div class="g3 mb" data-l="pt">
+  <div class="cd lb"><h4>Set (abrir)</h4><p>Aterrissar o arco anterior. "Porquê" emocional. Mapa visual. Co-criar regras. Conexão antes de conteúdo. Revelar progressivamente.</p></div>
+  <div class="cd lt"><h4>Hold (sustentar)</h4><p>Circular entre salas. Perguntas, não respostas. Temperatura a cada 30min. Ajustar ao vivo. Confiar no processo.</p></div>
+  <div class="cd la"><h4>Land (aterrissar)</h4><p>Dar tempo. Reconectar com objetivos. Floor mapping. Alimentar próximo arco. Aterrissar atitudes. Celebrar.</p></div>
+</div>
+<div class="g3 mb" data-l="en">
+  <div class="cd lb"><h4>Set (open)</h4><p>Land previous arc. Emotional "why". Visual map. Co-create rules. Connection before content. Reveal progressively.</p></div>
+  <div class="cd lt"><h4>Hold (sustain)</h4><p>Circulate rooms. Questions, not answers. Temperature every 30min. Adjust live. Trust the process.</p></div>
+  <div class="cd la"><h4>Land (close)</h4><p>Give time. Reconnect with objectives. Floor mapping. Feed next arc. Land attitudes. Celebrate.</p></div>
+</div>
+<div data-l="pt"><p class="h3">Perguntas poderosas</p></div><div data-l="en"><p class="h3">Powerful questions</p></div>
+<div class="g3 mb" data-l="pt">
+  <div class="cd"><h4>Descoberta</h4><p style="font-style:italic">"O que a IA revelou que vocês não teriam pensado?" · "Onde errou e o que ensina?"</p></div>
+  <div class="cd"><h4>Hipóteses</h4><p style="font-style:italic">"Qual mais temem testar?" · "Com 1h e R$100, qual experimento?" · "3 razões contra."</p></div>
+  <div class="cd"><h4>Integração</h4><p style="font-style:italic">"O que muda segunda?" · "Primeira validação com IA?" · "O que fariam diferente?"</p></div>
+</div>
+<div class="g3 mb" data-l="en">
+  <div class="cd"><h4>Discovery</h4><p style="font-style:italic">"What did AI reveal you wouldn't have thought of?" · "Where did it fail and what does it teach?"</p></div>
+  <div class="cd"><h4>Hypotheses</h4><p style="font-style:italic">"Which do you most fear testing?" · "With 1h and €100?" · "3 reasons against."</p></div>
+  <div class="cd"><h4>Integration</h4><p style="font-style:italic">"What changes Monday?" · "First AI validation?" · "What would you do differently?"</p></div>
+</div>
+<div data-l="pt"><p class="h3">Distúrbios e hotspots</p></div><div data-l="en"><p class="h3">Disturbances & hotspots</p></div>
+<div class="g3 mb" data-l="pt">
+  <div class="cd la"><h4>Criativos</h4><p>Trocar projetos · IA destruindo ideias · Restrições · Mudar papéis · "E se o oposto?"</p></div>
+  <div class="cd lb"><h4>Conhecimento</h4><p>Prompts (10min) · Lean canvas (5min) · Alucinações (5min) · Verificação (5min).</p></div>
+  <div class="cd ly"><h4>Hotspots</h4><p>"5 motivos de falha" · Troca de críticos · Output problemático · "Quem pagaria?"</p></div>
+</div>
+<div class="g3 mb" data-l="en">
+  <div class="cd la"><h4>Creative</h4><p>Swap projects · AI destroying ideas · Constraints · Switch roles · "What if opposite?"</p></div>
+  <div class="cd lb"><h4>Knowledge</h4><p>Prompts (10min) · Lean canvas (5min) · Hallucinations (5min) · Verification (5min).</p></div>
+  <div class="cd ly"><h4>Hotspots</h4><p>"5 failure reasons" · Swap critics · Problematic output · "Who would pay?"</p></div>
+</div>
+</div>
+
+<!-- S5: DISCOVER -->
+<div class="sec" data-s="5">
+<div data-l="pt"><h2 class="st">Descobrir — Avaliação e Feed-Forward</h2><p class="ss">Métricas, avaliação (+/−) e continuidade para a Nedgex.</p></div>
+<div data-l="en"><h2 class="st">Discover — Evaluation & Feed-Forward</h2><p class="ss">Metrics, (+/−) evaluation and continuity for Nedgex.</p></div>
+<div class="ev" data-l="pt">
+  <div class="eb2 ep"><h4>O que funcionou (+)</h4><p>Exercícios mais engajantes? Onde a IA surpreendeu? Momentos transformadores? Manter.</p></div>
+  <div class="eb2 em"><h4>O que funcionou contra (−)</h4><p>O que travou? Tempo? Ferramentas? Clareza? Transformar em conselho.</p></div>
+</div>
+<div class="ev" data-l="en">
+  <div class="eb2 ep"><h4>What worked (+)</h4><p>Most engaging exercises? Where did AI surprise? Transformative moments? Keep.</p></div>
+  <div class="eb2 em"><h4>What worked against (−)</h4><p>What blocked? Time? Tools? Clarity? Turn into advice.</p></div>
+</div>
+<div data-l="pt"><p class="h3">Métricas por SKAV</p></div><div data-l="en"><p class="h3">Metrics per SKAV</p></div>
+<div class="g4 mb" data-l="pt">
+  <div class="cd cb"><div class="tg">Skills</div><p>≥1 fluxo funcional. Prompts estruturados e replicáveis.</p></div>
+  <div class="cd ct"><div class="tg">Knowledge</div><p>Articulam limitações. Score ≥7 floor mapping.</p></div>
+  <div class="cd ca"><div class="tg">Attitudes</div><p>Confiança crescente E1→E2. Disposição para experimentar.</p></div>
+  <div class="cd cr"><div class="tg">Values</div><p>3 Monday Moves. Crítica construtiva. Colaboração.</p></div>
+</div>
+<div class="g4 mb" data-l="en">
+  <div class="cd cb"><div class="tg">Skills</div><p>≥1 functional workflow. Structured, replicable prompts.</p></div>
+  <div class="cd ct"><div class="tg">Knowledge</div><p>Articulate limitations. Score ≥7 floor mapping.</p></div>
+  <div class="cd ca"><div class="tg">Attitudes</div><p>Growing confidence S1→S2. Willingness to experiment.</p></div>
+  <div class="cd cr"><div class="tg">Values</div><p>3 Monday Moves. Constructive criticism. Collaboration.</p></div>
+</div>
+<div class="cb" data-l="pt"><h4>Continuidade pós-imersão</h4><p>Check-in 1h em 2-3 semanas · Monday Moves · Repositório Nedgex · Campeões de IA · Canal assíncrono · Follow-up.</p></div>
+<div class="cb" data-l="en"><h4>Post-immersion continuity</h4><p>1h check-in in 2-3 weeks · Monday Moves · Nedgex repository · AI champions · Async channel · Follow-up session.</p></div>
+</div>
+
+</div>
+<footer class="ft">
+  <p><strong>Inflexão</strong> · Living Lab Education</p>
+  <p style="margin-top:4px" data-l="pt">Proposta preparada para <a href="https://nedgex.com" target="_blank">Nedgex</a> · Learning Arch Design methodology</p>
+  <p style="margin-top:4px" data-l="en">Proposal prepared for <a href="https://nedgex.com" target="_blank">Nedgex</a> · Learning Arch Design methodology</p>
+</footer>
+<script>
+function L(l){document.body.classList.toggle('en',l==='en');document.getElementById('bp').classList.toggle('on',l==='pt');document.getElementById('be').classList.toggle('on',l==='en');document.documentElement.lang=l==='en'?'en':'pt-BR'}
+const S=document.querySelectorAll('.sec');
+function G(i){S.forEach(s=>s.classList.remove('on'));S[i].classList.add('on');document.querySelectorAll('.nb').forEach(b=>b.classList.toggle('on',parseInt(b.dataset.n)===i));window.scrollTo({top:0,behavior:'smooth'})}
+function T(e){e.classList.toggle('x')}
+document.addEventListener('DOMContentLoaded',()=>{const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';o.unobserve(x.target)}})},{threshold:.1});document.querySelectorAll('.cd,.ai,.eb2,.cb').forEach(e=>{e.style.opacity='0';e.style.transform='translateY(10px)';e.style.transition='opacity .4s,transform .4s';o.observe(e)})});
+</script>
+</body>
+</html>
